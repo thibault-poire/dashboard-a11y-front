@@ -1,0 +1,34 @@
+<div class="relative">
+  <app-shared-icon-button
+    icon_name="more-vert"
+    [id]="menu_button_id"
+    label="open menu"
+    [aria_controls]="menu_id"
+    [aria_expanded]="is_expanded"
+    aria_haspopup="menu"
+    (clicked)="handle_click()"
+  ></app-shared-icon-button>
+
+  <div
+    #menu
+    [id]="menu_id"
+    class="absolute top-10 -left-3 w-max bg-container-primary border-2 border-menu-list rounded-lg overflow-hidden"
+    tabindex="-1"
+    [attr.aria-labelledby]="menu_button_id"
+    [hidden]="!is_expanded"
+  >
+    @for (option of options; track option.id) {
+      <button
+        class="flex items-center gap-2 w-full px-5 py-3 transition-colors hover:bg-menu-container-hover"
+        type="button"
+        (click)="option.action()"
+      >
+        @if (option.icon_name) {
+          <app-shared-icon [icon_name]="option.icon_name" />
+        }
+
+        <span>{{ option.label }}</span>
+      </button>
+    }
+  </div>
+</div>

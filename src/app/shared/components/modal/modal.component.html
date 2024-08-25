@@ -1,0 +1,22 @@
+<dialog
+  [open]="is_open"
+  class="min-w-[500px] after:fixed after:z-40 after:inset-0 after:bg-button-container-primary after:bg-opacity-25"
+>
+  <section
+    class="relative z-50 grid gap-5 p-8 bg-container-primary rounded-2xl border-2 border-modal"
+  >
+    <header class="flex items-center justify-between">
+      <app-shared-title [level]="2" variant="heading-2">
+        {{ title }}
+      </app-shared-title>
+
+      <app-shared-icon-button
+        label="close dialog"
+        icon_name="close"
+        (clicked)="closed.emit()"
+      ></app-shared-icon-button>
+    </header>
+
+    <ng-content />
+  </section>
+</dialog>
