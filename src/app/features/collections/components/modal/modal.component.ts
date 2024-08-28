@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { FormComponent } from '@core/components/form/form.component';
 import { ModalComponent as SharedModalComponent } from '@shared/components/modal/modal.component';
+import { FormComponent } from '@features/collections/components/form/form.component';
 
 @Component({
   imports: [FormComponent, SharedModalComponent],

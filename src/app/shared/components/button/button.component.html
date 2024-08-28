@@ -1,9 +1,28 @@
 @if (url) {
-  <a [routerLink]="url" [class]="classes">
+  <a
+    class="flex px-6 py-3 leading-6 rounded-full transition-colors"
+    [ngClass]="{
+      'text-tertiary bg-button-container-primary border-2 border-button-primary hover:bg-button-container-primary-hover':
+        variant === 'primary',
+      'text-primary bg-button-container-secondary border-2 border-button-secondary hover:bg-button-container-secondary-hover':
+        variant === 'secondary',
+    }"
+    [routerLink]="url"
+  >
     <ng-container *ngTemplateOutlet="content" />
   </a>
 } @else {
-  <button [class]="classes" [attr.type]="type" (click)="handle_click()">
+  <button
+    class="flex px-6 py-3 leading-6 rounded-full transition-colors"
+    [ngClass]="{
+      'text-tertiary bg-button-container-primary border-2 border-button-primary hover:bg-button-container-primary-hover':
+        variant === 'primary',
+      'text-primary bg-button-container-secondary border-2 border-button-secondary hover:bg-button-container-secondary-hover':
+        variant === 'secondary',
+    }"
+    [attr.type]="type"
+    (click)="handle_click()"
+  >
     <ng-container *ngTemplateOutlet="content" />
   </button>
 }

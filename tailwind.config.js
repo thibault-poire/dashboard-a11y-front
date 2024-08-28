@@ -18,6 +18,8 @@ module.exports = {
       "button-primary": "transparent",
       "button-secondary": "#000000",
       modal: "#000000",
+      input: "#BFBFBF",
+      "input-focus": "#000000",
     },
 
     fontFamily: {

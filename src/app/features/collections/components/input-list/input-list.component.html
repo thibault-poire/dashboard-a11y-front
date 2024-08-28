@@ -1,0 +1,48 @@
+<fieldset>
+  <legend class="relative z-20 top-3 left-3 -mt-3 px-2 bg-container-primary">
+    {{ legend }}
+  </legend>
+
+  @for (
+    url_input of url_inputs;
+    track url_input.id;
+    let index = $index;
+    let first = $first;
+    let last = $last
+  ) {
+    <div class="flex items-center gap-2">
+      <label class="sr-only" [htmlFor]="url_input.id">
+        Url n°{{ index + 1 }}
+      </label>
+
+      <input
+        #input
+        [id]="url_input.id"
+        class="relative w-full px-5 py-3 border-2 border-input outline-none focus:z-10 focus:border-input-focus placeholder:text-secondary"
+        [ngClass]="{
+          'rounded-t-[4px]': first,
+          '-mt-[2px]': !first,
+          'rounded-b-[4px]': last,
+        }"
+        placeholder="e.g. https://fr.wikipedia.org"
+        type="text"
+      />
+
+      <div class="flex items-center justify-center w-[40px] h-[40px]">
+        @if (last) {
+          <app-shared-icon-button
+            label="Add a new url input"
+            [icon_name]="'add-link'"
+            (clicked)="create_input()"
+          ></app-shared-icon-button>
+        } @else {
+          <app-shared-icon-button
+            label="Remove url input n°{{ index + 1 }}"
+            [icon_name]="'link-off'"
+            (clicked)="delete_input(url_input.id)"
+          ></app-shared-icon-button>
+        }
+      </div>
+    </div>
+  }
+</fieldset>

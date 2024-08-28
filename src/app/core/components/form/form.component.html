@@ -1,7 +1,9 @@
-<form novalidate>
-  <ng-content />
+<form class="flex flex-col gap-8" novalidate>
+  <div>
+    <ng-content />
+  </div>
 
-  <div class="flex gap-2 justify-end">
+  <div class="self-end flex gap-2">
     <app-shared-button variant="secondary" (click)="cancel_clicked.emit()">
       Cancel
     </app-shared-button>

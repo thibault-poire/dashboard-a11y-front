@@ -1,0 +1,11 @@
+<app-core-form (cancel_clicked)="closed.emit()">
+  <div class="flex flex-col gap-5">
+    <app-shared-input
+      label="Name"
+      placeholder="e.g. Wikipedia"
+      [required]="true"
+    ></app-shared-input>
+
+    <app-input-list legend="Url list"></app-input-list>
+  </div>
+</app-core-form>

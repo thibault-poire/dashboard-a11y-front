@@ -25,7 +25,7 @@ export class MenuComponent {
 
   is_expanded = false;
   menu_button_id = `menu-button-${crypto.randomUUID()}`;
-  menu_id: string = `menu-${crypto.randomUUID()}`;
+  menu_id = `menu-${crypto.randomUUID()}`;
 
   @HostListener('window:click', ['$event'])
   close_menu(event?: MouseEvent) {

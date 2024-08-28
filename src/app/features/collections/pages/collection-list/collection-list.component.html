@@ -1,6 +1,6 @@
 <app-core-layout>
   <section class="col-span-12 flex flex-col gap-8">
-    <app-shared-header title="Collections">
+    <app-shared-header header_title="Collections">
       <app-shared-button (clicked)="display_dialog()">
         Create a collection
       </app-shared-button>
@@ -22,7 +22,7 @@
     }
 
     <app-modal
-      [is_open]="true"
+      [is_open]="is_dialog_open"
       title="Create a new collection"
       (closed)="close_dialog()"
     >

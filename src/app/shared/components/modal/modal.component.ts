@@ -11,7 +11,7 @@ import { TitleComponent } from '@shared/components/title/title.component';
 })
 export class ModalComponent {
   @Input() is_open: boolean;
-  @Input({ required: true }) title: string;
+  @Input({ required: true }) modal_title: string;
 
   @Output() closed = new EventEmitter<void>();
 }

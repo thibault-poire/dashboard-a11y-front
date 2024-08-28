@@ -9,5 +9,5 @@ import { TitleComponent } from '@shared/components/title/title.component';
   templateUrl: 'header.component.html',
 })
 export class HeaderComponent {
-  @Input({ required: true }) title: string;
+  @Input({ required: true }) header_title: string;
 }
