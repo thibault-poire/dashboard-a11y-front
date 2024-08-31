@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 import { IconName } from '@core/types/icons.type';
 
@@ -11,14 +11,14 @@ import { IconComponent } from '@shared/components/icon/icon.component';
   templateUrl: 'icon-button.component.html',
 })
 export class IconButtonComponent {
-  @Input() aria_controls?: string;
-  @Input() aria_expanded?: boolean;
-  @Input() aria_haspopup?: 'menu';
-  @Input() id?: string;
-  @Input({ required: true }) icon_name: IconName;
-  @Input({ required: true }) label: string;
+  aria_controls = input<string | undefined>();
+  aria_expanded = input<boolean | undefined>();
+  aria_haspopup = input<'menu' | undefined>();
+  id = input<string | undefined>();
+  icon_name = input.required<IconName>();
+  label = input.required<string>();
 
-  @Output() clicked = new EventEmitter<void>();
+  clicked = output<void>();
 
   handle_click() {
     this.clicked.emit();

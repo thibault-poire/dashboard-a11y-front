@@ -1,5 +1,5 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { CollectionsService } from '@features/collections/services/collections';
+import { Component, input, viewChild } from '@angular/core';
+import { CollectionService } from '@features/collections/services/collection.service';
 
 import { MenuComponent as SharedMenuComponent } from '@shared/components/menu/menu.component';
 
@@ -12,47 +12,47 @@ import type { Option } from '@shared/components/menu/menu.type';
   templateUrl: 'menu.component.html',
 })
 export class MenuComponent {
-  @ViewChild(SharedMenuComponent) shared_menu: SharedMenuComponent;
+  shared_menu = viewChild<SharedMenuComponent>(SharedMenuComponent);
 
-  @Input({ required: true }) collection_id: string;
+  collection_id = input.required<string>();
 
-  constructor(private collections_service: CollectionsService) {}
+  constructor(private collection_service: CollectionService) {}
 
   options: Option[] = [
     {
       id: crypto.randomUUID(),
-      action: () => this.edit_colletion(this.collection_id),
+      action: () => this.edit_colletion(this.collection_id()),
       icon_name: 'edit',
       label: 'Edit collection',
     },
 
     {
       id: crypto.randomUUID(),
-      action: () => this.audit_collection(this.collection_id),
+      action: () => this.audit_collection(this.collection_id()),
       icon_name: 'rocket-launch',
       label: 'Launch audit',
     },
 
     {
       id: crypto.randomUUID(),
-      action: () => this.delete_collection(this.collection_id),
+      action: () => this.delete_collection(this.collection_id()),
       icon_name: 'delete',
       label: 'Delete collection',
     },
   ];
 
   delete_collection(collection_id: string) {
-    this.collections_service.delete_coolection(collection_id);
-    this.shared_menu.close_menu();
+    this.collection_service.delete_coolection(collection_id).subscribe();
+    this.shared_menu()?.close_menu();
   }
 
   edit_colletion(collection_id: string) {
     console.log(collection_id);
-    this.shared_menu.close_menu();
+    this.shared_menu()?.close_menu();
   }
 
   audit_collection(collection_id: string) {
     console.log(collection_id);
-    this.shared_menu.close_menu();
+    this.shared_menu()?.close_menu();
   }
 }

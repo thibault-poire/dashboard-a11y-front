@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 import { IconName } from '@core/types/icons.type';
 
@@ -8,5 +8,5 @@ import { IconName } from '@core/types/icons.type';
   templateUrl: 'icon.component.html',
 })
 export class IconComponent {
-  @Input({ required: true }) icon_name: IconName;
+  icon_name = input.required<IconName>();
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 import { IconButtonComponent } from '@shared/components/icon-button/icon-button.component';
 import { TitleComponent } from '@shared/components/title/title.component';
@@ -10,8 +10,8 @@ import { TitleComponent } from '@shared/components/title/title.component';
   templateUrl: 'modal.component.html',
 })
 export class ModalComponent {
-  @Input() is_open: boolean;
-  @Input({ required: true }) modal_title: string;
+  is_open = input<boolean | undefined>();
+  modal_title = input.required<string | undefined>();
 
-  @Output() closed = new EventEmitter<void>();
+  closed = output<void>();
 }

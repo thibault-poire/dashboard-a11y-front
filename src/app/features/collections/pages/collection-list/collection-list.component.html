@@ -1,14 +1,14 @@
 <app-core-layout>
   <section class="col-span-12 flex flex-col gap-8">
     <app-shared-header header_title="Collections">
-      <app-shared-button (clicked)="display_dialog()">
+      <app-shared-button (clicked)="handle_click()">
         Create a collection
       </app-shared-button>
     </app-shared-header>
 
-    @if (collections.length) {
+    @if (collections()?.length) {
       <div class="grid grid-cols-3 gap-4">
-        @for (collection of collections; track collection._id) {
+        @for (collection of collections(); track collection._id) {
           <app-card
             class="col-span-1"
             [collection_id]="collection._id"
@@ -22,9 +22,8 @@
     }
 
     <app-modal
-      [is_open]="is_dialog_open"
-      title="Create a new collection"
-      (closed)="close_dialog()"
+      [is_open]="is_dialog_open()"
+      modal_title="Create a new collection"
     >
     </app-modal>
   </section>

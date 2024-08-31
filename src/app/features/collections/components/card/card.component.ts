@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 import { formatDistanceToNow } from 'date-fns';
 
@@ -11,29 +11,27 @@ import { TitleComponent } from '@shared/components/title/title.component';
   standalone: true,
   templateUrl: 'card.component.html',
 })
-export class CardComponent implements OnInit {
-  @Input({ required: true }) collection_id: string;
-  @Input() errors?: number;
-  @Input({ required: true }) name: string;
-  @Input() urls?: number;
-  @Input() updated_at?: string;
+export class CardComponent {
+  collection_id = input.required<string>();
+  errors = input<number>();
+  name = input.required<string>();
+  urls = input<number>();
+  updated_at = input<string>();
 
-  time_value: string = '-';
-  time_text: string = 'last report';
+  last_update = computed(() => {
+    const updated_at = this.updated_at();
 
-  ngOnInit() {
-    if (!this.updated_at) {
-      return;
+    if (!updated_at) {
+      return { value: '-', text: 'last report' };
     }
 
-    const [value, ...text] = formatDistanceToNow(this.updated_at, {
+    const [value, ...text] = formatDistanceToNow(updated_at, {
       addSuffix: true,
     })
       .replace(/(about|over|almost)\s/, '')
       .replace('less than a minute', '1 minute')
       .split(' ');
 
-    this.time_value = value;
-    this.time_text = text.join(' ');
-  }
+    return { value, text: text.join(' ') };
+  });
 }

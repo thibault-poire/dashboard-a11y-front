@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 import { NgTemplateOutlet } from '@angular/common';
 
@@ -10,21 +10,17 @@ import type { Level, Variant } from './title.types';
   standalone: true,
   templateUrl: 'title.component.html',
 })
-export class TitleComponent implements OnInit {
-  @Input() level: Level = 1;
-  @Input() variant: Variant = 'heading';
+export class TitleComponent {
+  level = input<Level>(1);
+  variant = input<Variant>('heading');
 
-  classes: string = '';
-
-  ngOnInit() {
-    switch (this.variant) {
+  classes = computed<string>(() => {
+    switch (this.variant()) {
       case 'heading':
-        this.classes = 'text-4xl font-bold';
-        break;
+        return 'text-4xl font-bold';
 
       case 'heading-2':
-        this.classes = 'font-bold';
-        break;
+        return 'font-bold';
     }
-  }
+  });
 }

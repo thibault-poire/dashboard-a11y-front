@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 
-import { CollectionsService } from '@features/collections/services/collections';
+import { CollectionService } from '@features/collections/services/collection.service';
+import { DialogService } from '@features/collections/services/dialog.service';
 
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { CardComponent } from '@features/collections/components/card/card.component';
@@ -9,9 +11,6 @@ import { LayoutComponent } from '@core/components/layout/layout.component';
 import { ModalComponent } from '@features/collections/components/modal/modal.component';
 import { RouterLink } from '@angular/router';
 import { TitleComponent } from '@shared/components/title/title.component';
-
-import type { Collection } from '@core/types/collection.type';
-
 @Component({
   imports: [
     ButtonComponent,
@@ -27,25 +26,19 @@ import type { Collection } from '@core/types/collection.type';
   templateUrl: 'collection-list.component.html',
 })
 export class CollectionListComponent implements OnInit {
-  collections: Collection[];
-  is_dialog_open: boolean;
+  constructor(
+    private collection_service: CollectionService,
+    private readonly dialog_service: DialogService,
+  ) {}
 
-  constructor(private collections_service: CollectionsService) {}
+  collections = toSignal(this.collection_service.collection$);
+  is_dialog_open = toSignal(this.dialog_service.is_open$);
 
   ngOnInit() {
-    this.collections_service.get_collections();
-
-    this.collections_service.collection$.subscribe((collections) => {
-      this.collections = collections;
-    });
+    this.collection_service.get_collections().subscribe();
   }
 
-  close_dialog() {
-    console.log('test');
-    this.is_dialog_open = false;
-  }
-
-  display_dialog() {
-    this.is_dialog_open = true;
+  handle_click() {
+    this.dialog_service.set_is_open(true);
   }
 }

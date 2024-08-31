@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input } from '@angular/core';
+
+import { DialogService } from '@features/collections/services/dialog.service';
 
 import { ModalComponent as SharedModalComponent } from '@shared/components/modal/modal.component';
 import { FormComponent } from '@features/collections/components/form/form.component';
@@ -10,7 +12,12 @@ import { FormComponent } from '@features/collections/components/form/form.compon
   templateUrl: 'modal.component.html',
 })
 export class ModalComponent {
-  @Input() is_open: boolean;
+  constructor(private readonly dialog_service: DialogService) {}
 
-  @Output() closed = new EventEmitter<void>();
+  is_open = input<boolean>();
+  modal_title = input<string>();
+
+  handle_close() {
+    this.dialog_service.set_is_open(false);
+  }
 }

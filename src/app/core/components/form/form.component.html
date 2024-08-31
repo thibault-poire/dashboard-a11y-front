@@ -1,14 +1,14 @@
-<form class="flex flex-col gap-8" novalidate>
+<form class="flex flex-col gap-8" novalidate (ngSubmit)="submitted.emit()">
   <div>
     <ng-content />
   </div>
 
   <div class="self-end flex gap-2">
-    <app-shared-button variant="secondary" (click)="cancel_clicked.emit()">
+    <app-shared-button variant="secondary" (click)="canceled.emit()">
       Cancel
     </app-shared-button>
 
-    <app-shared-button type="submit" (click)="submit_clicked.emit()">
+    <app-shared-button [disabled]="!is_valid()" type="submit">
       Submit
     </app-shared-button>
   </div>

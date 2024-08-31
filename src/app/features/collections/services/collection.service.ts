@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 
 import { BehaviorSubject, switchMap, tap } from 'rxjs';
 
-import { Collection } from '@core/types/collection.type';
+import { Collection, CollectionBody } from '@core/types/collection.type';
 
 @Injectable({ providedIn: 'root' })
-export class CollectionsService {
+export class CollectionService {
   base_url = 'http://localhost:1337';
 
   collection$ = new BehaviorSubject<Collection[]>([]);
@@ -14,15 +14,15 @@ export class CollectionsService {
   constructor(private http: HttpClient) {}
 
   get_collections() {
-    this.http
-      .get<Collection[]>(`${this.base_url}/api/collections`)
-      .subscribe((collections) => {
+    return this.http.get<Collection[]>(`${this.base_url}/api/collections`).pipe(
+      tap((collections) => {
         this.collection$.next(collections);
-      });
+      }),
+    );
   }
 
   delete_coolection(collection_id: string) {
-    this.http
+    return this.http
       .delete(`${this.base_url}/api/collections/${collection_id}`)
       .pipe(
         switchMap(() => this.collection$),
@@ -30,10 +30,19 @@ export class CollectionsService {
           this.collection$.next(
             collections.filter(({ _id }) => {
               return _id !== collection_id;
-            })
+            }),
           );
-        })
-      )
-      .subscribe();
+        }),
+      );
+  }
+
+  post_collection(body: CollectionBody) {
+    return this.http
+      .post<Collection>(`${this.base_url}/api/collections`, body)
+      .pipe(
+        tap((collection) => {
+          this.collection$.next([...this.collection$.getValue(), collection]);
+        }),
+      );
   }
 }

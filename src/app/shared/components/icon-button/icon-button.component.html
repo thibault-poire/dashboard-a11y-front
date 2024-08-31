@@ -1,12 +1,12 @@
 <button
-  [attr.id]="id"
+  [attr.id]="id()"
   class="relative z-0 flex after:absolute after:-z-[1] after:inset-1/2 after:w-[40px] after:h-[40px] after:rounded-full after:-translate-x-1/2 after:-translate-y-1/2 hover:after:bg-menu-container-hover after:transition-colors"
   type="button"
-  [attr.aria-controls]="aria_controls"
-  [attr.aria-expanded]="aria_expanded"
-  [attr.aria-haspopup]="aria_haspopup"
-  [attr.aria-label]="label"
+  [attr.aria-controls]="aria_controls()"
+  [attr.aria-expanded]="aria_expanded()"
+  [attr.aria-haspopup]="aria_haspopup()"
+  [attr.aria-label]="label()"
   (click)="handle_click()"
 >
-  <app-shared-icon [icon_name]="icon_name" />
+  <app-shared-icon [icon_name]="icon_name()" />
 </button>

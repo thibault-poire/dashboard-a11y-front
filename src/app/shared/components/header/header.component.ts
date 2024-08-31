@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 import { TitleComponent } from '@shared/components/title/title.component';
 
@@ -9,5 +9,5 @@ import { TitleComponent } from '@shared/components/title/title.component';
   templateUrl: 'header.component.html',
 })
 export class HeaderComponent {
-  @Input({ required: true }) header_title: string;
+  header_title = input.required<string>();
 }

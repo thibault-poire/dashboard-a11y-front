@@ -1,5 +1,5 @@
 <dialog
-  [open]="is_open"
+  [open]="is_open()"
   class="min-w-[500px] after:fixed after:z-40 after:inset-0 after:bg-button-container-primary after:bg-opacity-25"
 >
   <section
@@ -7,7 +7,7 @@
   >
     <header class="flex items-center justify-between">
       <app-shared-title [level]="2" variant="heading-2">
-        {{ modal_title }}
+        {{ modal_title() }}
       </app-shared-title>
 
       <app-shared-icon-button

@@ -1,7 +1,7 @@
 <app-shared-modal
-  [is_open]="is_open"
-  modal_title="Create a new collection"
-  (closed)="closed.emit()"
+  [is_open]="is_open()"
+  [modal_title]="modal_title()"
+  (closed)="handle_close()"
 >
   <app-form />
 </app-shared-modal>

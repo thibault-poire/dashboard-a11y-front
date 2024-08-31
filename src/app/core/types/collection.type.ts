@@ -7,3 +7,8 @@ export type Collection = {
   name: string;
   urls: Url[];
 } & API;
+
+export type CollectionBody = {
+  name: string;
+  urls?: { url: string }[];
+};

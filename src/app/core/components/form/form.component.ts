@@ -1,14 +1,17 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { ButtonComponent } from '@shared/components/button/button.component';
 
 @Component({
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, FormsModule],
   selector: 'app-core-form',
   standalone: true,
   templateUrl: 'form.component.html',
 })
 export class FormComponent {
-  @Output() cancel_clicked = new EventEmitter<void>();
-  @Output() submit_clicked = new EventEmitter<void>();
+  is_valid = input<boolean>();
+
+  canceled = output<void>();
+  submitted = output<void>();
 }

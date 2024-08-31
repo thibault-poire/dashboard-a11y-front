@@ -1,23 +1,24 @@
 <fieldset>
   <legend class="relative z-20 top-3 left-3 -mt-3 px-2 bg-container-primary">
-    {{ legend }}
+    {{ legend() }}
   </legend>
 
   @for (
-    url_input of url_inputs;
-    track url_input.id;
+    url_input_id of url_input_ids();
+    track url_input_id.id;
     let index = $index;
     let first = $first;
     let last = $last
   ) {
     <div class="flex items-center gap-2">
-      <label class="sr-only" [htmlFor]="url_input.id">
+      <label class="sr-only" [htmlFor]="url_input_id.id">
         Url n°{{ index + 1 }}
       </label>
 
       <input
         #input
-        [id]="url_input.id"
+        [(ngModel)]="urls[url_input_id.id]"
+        [id]="url_input_id.id"
         class="relative w-full px-5 py-3 border-2 border-input outline-none focus:z-10 focus:border-input-focus placeholder:text-secondary"
         [ngClass]="{
           'rounded-t-[4px]': first,
@@ -26,6 +27,7 @@
         }"
         placeholder="e.g. https://fr.wikipedia.org"
         type="text"
+        (ngModelChange)="handle_change()"
       />
 
       <div class="flex items-center justify-center w-[40px] h-[40px]">
@@ -39,7 +41,7 @@
           <app-shared-icon-button
             label="Remove url input n°{{ index + 1 }}"
             [icon_name]="'link-off'"
-            (clicked)="delete_input(url_input.id)"
+            (clicked)="delete_input(url_input_id.id)"
           ></app-shared-icon-button>
         }
       </div>
