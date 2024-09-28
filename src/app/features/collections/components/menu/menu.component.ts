@@ -42,7 +42,7 @@ export class MenuComponent {
   ];
 
   delete_collection(collection_id: string) {
-    this.collection_service.delete_coolection(collection_id).subscribe();
+    this.collection_service.delete_collection(collection_id).subscribe();
     this.shared_menu()?.close_menu();
   }
 

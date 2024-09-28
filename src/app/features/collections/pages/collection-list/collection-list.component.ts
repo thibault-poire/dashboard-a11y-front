@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { CollectionService } from '@features/collections/services/collection.service';
@@ -11,6 +11,7 @@ import { LayoutComponent } from '@core/components/layout/layout.component';
 import { ModalComponent } from '@features/collections/components/modal/modal.component';
 import { RouterLink } from '@angular/router';
 import { TitleComponent } from '@shared/components/title/title.component';
+
 @Component({
   imports: [
     ButtonComponent,
@@ -27,15 +28,37 @@ import { TitleComponent } from '@shared/components/title/title.component';
 })
 export class CollectionListComponent implements OnInit {
   constructor(
-    private collection_service: CollectionService,
+    private readonly collection_service: CollectionService,
     private readonly dialog_service: DialogService,
   ) {}
 
-  collections = toSignal(this.collection_service.collection$);
+  collections_overview = toSignal(
+    this.collection_service.collections_overview$,
+  );
+
+  formatted_collections_overview = computed(() => {
+    const collections_overview = this.collections_overview();
+
+    return collections_overview?.map(({ _id, name, urls }) => {
+      const [url] = urls ?? [];
+      const [report] = url.reports ?? [];
+
+      console.log(report.incomplete.length + report.violations.length);
+
+      return {
+        collection_id: _id,
+        errors: report.incomplete.length + report.violations.length,
+        name,
+        updated_at: report ? url.updated_at : undefined,
+        urls: urls?.length,
+      };
+    });
+  });
+
   is_dialog_open = toSignal(this.dialog_service.is_open$);
 
   ngOnInit() {
-    this.collection_service.get_collections().subscribe();
+    this.collection_service.get_collections_overview().subscribe();
   }
 
   handle_click() {

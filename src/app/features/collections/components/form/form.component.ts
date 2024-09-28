@@ -62,7 +62,8 @@ export class FormComponent implements OnInit {
         .map((url) => ({ url })),
     };
 
-    this.collection_service.post_collection(body).subscribe(() => {
+    this.collection_service.post_collection(body).subscribe((a) => {
+      console.log(a);
       this.dialog_service.set_is_open(false);
     });
   }

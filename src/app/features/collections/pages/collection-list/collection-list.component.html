@@ -6,16 +6,19 @@
       </app-shared-button>
     </app-shared-header>
 
-    @if (collections()?.length) {
+    @if (formatted_collections_overview()?.length) {
       <div class="grid grid-cols-3 gap-4">
-        @for (collection of collections(); track collection._id) {
+        @for (
+          formatted_collection_overview of formatted_collections_overview();
+          track formatted_collection_overview.collection_id
+        ) {
           <app-card
             class="col-span-1"
-            [collection_id]="collection._id"
-            [errors]="collection?.last_report?.total_errors"
-            [name]="collection.name"
-            [updated_at]="collection?.last_report?.updated_at"
-            [urls]="collection?.urls?.length"
+            [collection_id]="formatted_collection_overview.collection_id"
+            [errors]="formatted_collection_overview.errors"
+            [name]="formatted_collection_overview.name"
+            [updated_at]="formatted_collection_overview.updated_at"
+            [urls]="formatted_collection_overview.urls"
           />
         }
       </div>
