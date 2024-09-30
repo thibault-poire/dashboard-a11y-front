@@ -24,7 +24,15 @@ import type { Option } from './menu.type';
 export class MenuComponent {
   constructor() {
     effect(() => {
-      this.menu()?.nativeElement.focus();
+      if (this.menu()) {
+        this.menu()?.nativeElement.focus();
+        return;
+      }
+
+      if (!this.menu()) {
+        this.button()?.nativeElement.firstChild.focus();
+        return;
+      }
     });
   }
 

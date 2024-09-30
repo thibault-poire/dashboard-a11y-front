@@ -26,11 +26,11 @@ import { TitleComponent } from '@shared/components/title/title.component';
 })
 export class CollectionListComponent implements OnInit {
   constructor(
-    private readonly collection_service: CollectionService,
-    private readonly dialog_service: DialogService,
+    private collection_service: CollectionService,
+    private dialog_service: DialogService,
   ) {}
 
-  collections_overview = toSignal(
+  private collections_overview = toSignal(
     this.collection_service.collections_overview$,
   );
 

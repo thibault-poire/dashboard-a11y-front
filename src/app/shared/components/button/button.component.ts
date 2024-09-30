@@ -13,7 +13,7 @@ import type { Types, Variant } from './button.type';
 export class ButtonComponent {
   disabled = input<boolean | undefined>();
   type = input<Types>('button');
-  url = input<string | undefined>();
+  href = input<string | undefined>();
   variant = input<Variant>('primary');
 
   clicked = output<void>();

@@ -1,5 +1,5 @@
-@if (url()) {
-  <a [class]="classes()" [routerLink]="url()">
+@if (href()) {
+  <a [class]="classes()" [routerLink]="href()">
     <ng-container *ngTemplateOutlet="content" />
   </a>
 } @else {

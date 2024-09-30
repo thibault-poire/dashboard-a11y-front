@@ -15,6 +15,7 @@ export class CollectionService {
   base_url = 'http://localhost:1337';
 
   collections_overview$ = new BehaviorSubject<CollectionOverview[]>([]);
+  collection$ = new BehaviorSubject<Collection | undefined>(undefined);
 
   constructor(private http: HttpClient) {}
 
@@ -40,6 +41,20 @@ export class CollectionService {
     return this.http
       .get<CollectionOverview[]>(url.toString())
       .pipe(tap((collections) => this.collections_overview$.next(collections)));
+  }
+
+  get_collection(id: string) {
+    const url = new URL(`${this.base_url}/api/collections/${id}`);
+
+    url.search = stringify({
+      populate: { urls: null },
+    });
+
+    return this.http.get<Collection>(url.toString()).pipe(
+      tap((collection) => {
+        this.collection$.next(collection);
+      }),
+    );
   }
 
   delete_collection(collection_id: string) {
