@@ -1,5 +1,6 @@
 import {
   Component,
+  effect,
   ElementRef,
   HostListener,
   input,
@@ -7,18 +8,26 @@ import {
   viewChild,
 } from '@angular/core';
 
+import { FocusTrapDirective } from '@shared/directives/focus-trap.directive';
+
 import { IconButtonComponent } from '@shared/components/icon-button/icon-button.component';
 import { IconComponent } from '@shared/components/icon/icon.component';
 
 import type { Option } from './menu.type';
 
 @Component({
-  imports: [IconButtonComponent, IconComponent],
+  imports: [FocusTrapDirective, IconButtonComponent, IconComponent],
   selector: 'app-shared-menu',
   standalone: true,
   templateUrl: 'menu.component.html',
 })
 export class MenuComponent {
+  constructor() {
+    effect(() => {
+      this.menu()?.nativeElement.focus();
+    });
+  }
+
   options = input.required<Option[]>();
 
   button = viewChild(IconButtonComponent, { read: ElementRef });
@@ -45,5 +54,11 @@ export class MenuComponent {
 
   handle_click() {
     this.is_expanded.update((value) => !value);
+  }
+
+  handle_keydown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.is_expanded.set(false);
+    }
   }
 }

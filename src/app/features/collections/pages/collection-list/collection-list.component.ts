@@ -9,7 +9,6 @@ import { CardComponent } from '@features/collections/components/card/card.compon
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { LayoutComponent } from '@core/components/layout/layout.component';
 import { ModalComponent } from '@features/collections/components/modal/modal.component';
-import { RouterLink } from '@angular/router';
 import { TitleComponent } from '@shared/components/title/title.component';
 
 @Component({
@@ -20,7 +19,6 @@ import { TitleComponent } from '@shared/components/title/title.component';
     LayoutComponent,
     ModalComponent,
     TitleComponent,
-    RouterLink,
   ],
   selector: 'app-collection-list',
   standalone: true,
@@ -43,13 +41,12 @@ export class CollectionListComponent implements OnInit {
       const [url] = urls ?? [];
       const [report] = url.reports ?? [];
 
-      console.log(report.incomplete.length + report.violations.length);
-
       return {
         collection_id: _id,
-        errors: report.incomplete.length + report.violations.length,
-        name,
-        updated_at: report ? url.updated_at : undefined,
+        errors: report && report.incomplete.length + report.violations.length,
+        href: _id,
+        name: name,
+        updated_at: report && url.updated_at,
         urls: urls?.length,
       };
     });

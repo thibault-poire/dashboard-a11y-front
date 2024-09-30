@@ -1,10 +1,10 @@
-<article class="grid gap-y-5 p-5 bg-container-primary rounded-2xl">
+<article class="relative grid gap-y-5 p-5 bg-container-primary rounded-2xl">
   <header class="flex items-center justify-between">
     <app-shared-title [level]="2" variant="heading-2">
       {{ name() }}
     </app-shared-title>
 
-    <app-menu [collection_id]="collection_id()" />
+    <app-menu class="z-10" [collection_id]="collection_id()" />
   </header>
 
   <ul class="grid grid-cols-3 gap-4 h-[80px]">
@@ -32,4 +32,10 @@
       </p>
     </li>
   </ul>
+
+  @if (href()) {
+    <a class="absolute inset-0" [routerLink]="collection_id()">
+      <span class="sr-only">{{ name() }} details</span>
+    </a>
+  }
 </article>

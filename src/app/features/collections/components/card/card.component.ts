@@ -4,9 +4,10 @@ import { formatDistanceToNow } from 'date-fns';
 
 import { MenuComponent } from '@features/collections/components/menu/menu.component';
 import { TitleComponent } from '@shared/components/title/title.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [MenuComponent, TitleComponent],
+  imports: [MenuComponent, RouterLink, TitleComponent],
   selector: 'app-card',
   standalone: true,
   templateUrl: 'card.component.html',
@@ -14,6 +15,7 @@ import { TitleComponent } from '@shared/components/title/title.component';
 export class CardComponent {
   collection_id = input.required<string>();
   errors = input<number>();
+  href = input<string>();
   name = input.required<string>();
   urls = input<number>();
   updated_at = input<string>();
