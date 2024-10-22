@@ -47,7 +47,10 @@ export class CollectionService {
     const url = new URL(`${this.base_url}/api/collections/${id}`);
 
     url.search = stringify({
-      populate: { urls: null },
+      select: ['-_id', 'name'],
+      populate: {
+        urls: { select: ['-_id', 'url'], populate: { reports: null } },
+      },
     });
 
     return this.http.get<Collection>(url.toString()).pipe(
@@ -88,5 +91,12 @@ export class CollectionService {
           ]);
         }),
       );
+  }
+
+  post_collection_audit(collection_id: string) {
+    return this.http.post<void>(
+      `${this.base_url}/api/collections/${collection_id}/audits`,
+      {},
+    );
   }
 }

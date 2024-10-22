@@ -1,0 +1,13 @@
+<details class="p-5 bg-container-primary rounded-2xl" [open]="is_open">
+  <summary
+    class="flex items-center justify-between gap-5 list-none cursor-pointer"
+    (click)="handle_click($event)"
+  >
+    <ng-content select="[slot-summary]"></ng-content>
+    <app-shared-icon [icon_name]="is_open ? 'remove' : 'add'"></app-shared-icon>
+  </summary>
+
+  <div class="mt-5">
+    <ng-content></ng-content>
+  </div>
+</details>

@@ -11,6 +11,7 @@ module.exports = {
       "button-container-primary-hover": "#1A1A1A",
       "button-container-secondary-hover": "#E6E6E6",
       "menu-container-hover": "#E6E6E6",
+      "table-row-even": "#F2F2F2",
     },
 
     borderColor: {
@@ -20,6 +21,7 @@ module.exports = {
       modal: "#000000",
       input: "#BFBFBF",
       "input-focus": "#000000",
+      table: "#BFBFBF",
     },
 
     fontFamily: {

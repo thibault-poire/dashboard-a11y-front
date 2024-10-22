@@ -52,7 +52,7 @@ export class MenuComponent {
   }
 
   audit_collection(collection_id: string) {
-    console.log(collection_id);
+    this.collection_service.post_collection_audit(collection_id).subscribe();
     this.shared_menu()?.close_menu();
   }
 }

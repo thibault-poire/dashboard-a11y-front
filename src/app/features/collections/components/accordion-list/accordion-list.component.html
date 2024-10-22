@@ -1,0 +1,39 @@
+<ul>
+  @for (url of urls; track url._id) {
+    <li>
+      <app-shared-accordion>
+        <ng-container slot-summary>
+          <div class="flex justify-between w-full">
+            <span>{{ url.url }}</span>
+
+            @if (url.reports.length) {
+              <span
+                >{{
+                  url.reports[0].violations.length +
+                    url.reports[0].incomplete.length
+                }}
+                error(s)</span
+              >
+            }
+          </div>
+        </ng-container>
+
+        @if (url.reports.length) {
+          <div class="flex flex-col gap-5">
+            <app-shared-table
+              caption="Violations"
+              [headers]="['decription', 'impact']"
+              [rows]="format_url_violations(url)"
+            ></app-shared-table>
+
+            <app-shared-table
+              caption="Incomplete"
+              [headers]="['decription']"
+              [rows]="format_url_incomplete(url)"
+            ></app-shared-table>
+          </div>
+        }
+      </app-shared-accordion>
+    </li>
+  }
+</ul>

@@ -1,0 +1,33 @@
+<table
+  class="w-full border-separate border-spacing-0 border-2 border-table rounded-lg"
+>
+  @if (caption) {
+    <caption>
+      {{
+        caption
+      }}
+    </caption>
+  }
+
+  @if (headers?.length) {
+    <thead>
+      <tr>
+        @for (header of headers; track header) {
+          <th class="px-5 py-3 border-b-2 border-table">
+            {{ header }}
+          </th>
+        }
+      </tr>
+    </thead>
+  }
+
+  <tbody>
+    @for (row of rows; track row) {
+      <tr class="even:bg-table-row-even">
+        @for (column of row; track column) {
+          <td class="px-5 py-3">{{ column }}</td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>

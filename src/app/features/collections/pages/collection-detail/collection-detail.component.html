@@ -1,9 +1,13 @@
 <app-core-layout>
   <section class="col-span-12 flex flex-col gap-8">
-    @if (formatted_collection()) {
-      <app-shared-header [header_title]="formatted_collection().name">
+    @if (collection_name) {
+      <app-shared-header [header_title]="collection_name">
         <app-shared-button href="/">Back to homepage</app-shared-button>
       </app-shared-header>
+    }
+
+    @if (collection_urls.length) {
+      <app-accordion-list [urls]="collection_urls"></app-accordion-list>
     }
   </section>
 </app-core-layout>
